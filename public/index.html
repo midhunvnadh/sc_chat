@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>File Upload</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="app.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>File Upload</h1>
+      <form id="uploadForm" enctype="multipart/form-data">
+        <div class="mb-3">
+          <label for="fileInput" class="form-label">Select files:</label>
+          <input type="file" id="fileInput" name="files[]" multiple />
+        </div>
+        <button type="submit" class="btn btn-primary">Upload</button>
+      </form>
+    </div>
+
+    <div id="results" class="results"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      var files = [];
+      document
+        .getElementById("uploadForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+          var files = document.getElementById("fileInput").files;
+          var formData = new FormData();
+
+          for (var i = 0; i < files.length; i++) {
+            formData.append("files[]", files[i]);
+            files[i] = files[i];
+          }
+
+          fetch("/submit", {
+            method: "POST",
+            body: formData,
+          })
+            .then((response) => response.json())
+            .then((results) => {
+              document.getElementById("results").innerHTML = "";
+              for (var i = 0; i < files.length; i++) {
+                const file = files[i];
+                const reader = new FileReader();
+                const { prediction } = results[i];
+
+                reader.addEventListener(
+                  "load",
+                  function () {
+                    const data = reader.result;
+                    document.getElementById("results").innerHTML += `
+                        <div class="result">
+                            <img src="${data}" alt="${file.name}" />   
+                            <h4>${prediction}</h4> 
+                            <h5>${file.name}</h5> 
+                        </div>
+                    `;
+                  },
+                  false
+                );
+                if (file) {
+                  reader.readAsDataURL(file);
+                }
+              }
+              //console.log(results);
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+            });
+        });
+    </script>
+  </body>
+</html>
