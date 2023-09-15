@@ -4,6 +4,7 @@ import string
 import os
 from get_best_medicines import find_medicine
 from flask_cors import CORS
+from predict_sd import predict_skin_disease
 
 app = Flask(__name__)
 CORS(app)
@@ -20,9 +21,15 @@ def delete_file(file_path):
     except OSError as e:
         print(f"Error deleting file: {e}")
 
+def create_dir_if_not_exists(dir_path):
+    if not os.path.exists(dir_path):
+        os.makedirs(dir_path)
+        print(f"Created directory: {dir_path}")
+
 @app.route('/submit', methods=['POST'])
 def submit():
-    files = request.files.getlist('files[]')
+    create_dir_if_not_exists('uploads')
+    files = request.files.getlist('file[]')
     predictions = []
     for file in files:
         filename = file.filename
@@ -32,14 +39,13 @@ def submit():
         upload_path = f"uploads/{random_name}"
 
         file.save(upload_path)
-        ##prediction = predict_skin_disease(upload_path)
-        prediction = "Skin disease"
+        prediction, acc = predict_skin_disease(upload_path)
         delete_file(upload_path)
 
         print(f"Saved file in: {upload_path}")
         print(f"Prediction: {prediction}")
         predictions.append(
-            {'filename': filename, 'prediction': prediction}
+            {'filename': filename, 'prediction': prediction, 'accuracy': acc}
         )
     return predictions
 

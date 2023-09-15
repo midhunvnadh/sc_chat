@@ -1,4 +1,4 @@
-export default function intro({ setMessages, findMedicine, message }) {
+export default function intro({ setMessages, findMedicine, findSD, message }) {
   return {
     message: message || "Hey, welcome to MediBot! How can I help you today?",
     options: [
@@ -13,6 +13,7 @@ export default function intro({ setMessages, findMedicine, message }) {
         name: "I'm having trouble on my skin",
         action: (message) => {
           setMessages((mss) => [...mss, { message, byBot: false }]);
+          findSD();
         },
       },
       {

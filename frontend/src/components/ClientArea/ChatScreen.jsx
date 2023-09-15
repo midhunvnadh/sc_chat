@@ -14,7 +14,94 @@ export default function ChatScreen() {
   const [msgFn, setMsgFn] = useState(null);
 
   useEffect(() => {
-    setMessages((mss) => [...mss, intro({ setMessages, findMedicine })]);
+    setMessages((mss) => [
+      ...mss,
+      intro({ setMessages, findMedicine, findSD }),
+    ]);
+  }, []);
+
+  const findSD = useCallback(() => {
+    setMessages((mss) => [
+      ...mss,
+      {
+        message: "Please upload a picture of your affected area of skin.",
+        byBot: true,
+        options: [
+          {
+            name: "Upload",
+            action: (message) => {
+              const input = document.createElement("input");
+              input.type = "file";
+              input.accept = "image/*";
+              input.onchange = async (e) => {
+                const files = e.target.files;
+                const formData = new FormData();
+                const file = files[0];
+                formData.append("file[]", file);
+                setMessages((mss) => [
+                  ...mss,
+                  {
+                    message: (
+                      <div className="flex flex-col items-center">
+                        <img
+                          src={URL.createObjectURL(file)}
+                          className="w-1/2"
+                        />
+                      </div>
+                    ),
+                    byBot: false,
+                  },
+                  {
+                    message: "Please wait while we process your image.",
+                    byBot: true,
+                  },
+                ]);
+                const resp = await fetch(`${API_BASE}/submit`, {
+                  method: "POST",
+                  body: formData,
+                });
+                const data = await resp.json();
+                const { prediction } = data[0];
+                setMessages((mss) => [
+                  ...mss,
+                  {
+                    message: `What's shown in the photo looks like ${prediction}...`,
+                    byBot: true,
+                  },
+                  {
+                    message: `Please consult a physician for further diagnosis. We could be wrong!`,
+                    byBot: true,
+                  },
+                  intro({
+                    setMessages,
+                    findMedicine,
+                    findSD,
+                    message: "Anything more?",
+                  }),
+                ]);
+              };
+              input.click();
+            },
+          },
+          {
+            name: "Cancel",
+            action: (message) => {
+              setMessages((mss) => [...mss, { message, byBot: false }]);
+              setMessages((mss) => [
+                ...mss,
+                { message: "No worries, let's see what's wrong?", byBot: true },
+                intro({
+                  setMessages,
+                  findMedicine,
+                  findSD,
+                  message: "Anything more?",
+                }),
+              ]);
+            },
+          },
+        ],
+      },
+    ]);
   }, []);
 
   const findMedicine = useCallback(() => {
