@@ -1,0 +1,13 @@
+version: "3.4"
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - VITE_API_BASE=/api
+    image: medichat:latest
+    container_name: medichat
+    restart: unless-stopped
+    ports:
+      - "3000:80"
