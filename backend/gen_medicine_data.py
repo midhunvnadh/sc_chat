@@ -3,7 +3,7 @@ from pre_proc import preprocess_text
 import pandas as pd
 
 #open csv
-df = pd.read_csv('dataset_mr/Medicine_Description.csv')
+df = pd.read_csv('dataset/mr/Medicine_Description.csv')
 map = []
 for index, row in df.iterrows():
     desc = row["Description"]
