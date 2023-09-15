@@ -23,6 +23,4 @@ def preprocess_text(text):
     words = [word for word in words if word not in stop_words]
 
     # Join the words back into a single string
-    cleaned_text = ' '.join(words)
-
-    return cleaned_text
+    return words
