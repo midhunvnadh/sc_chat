@@ -1,0 +1,6 @@
+/uploads
+/dataset
+__pycache__/
+.vscode
+/*.h5
+/*.json
