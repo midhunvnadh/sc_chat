@@ -7,7 +7,6 @@ function LoginWrapper({ children }) {
 export default function Main() {
   return (
     <header>
-      <h1>Chat App</h1>
       <LoginWrapper>
         <ChatAreaWrapper />
       </LoginWrapper>
