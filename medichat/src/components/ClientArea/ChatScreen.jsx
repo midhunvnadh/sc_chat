@@ -7,7 +7,7 @@ import axios from "axios";
 import intro from "./data/intro";
 
 export default function ChatScreen({ session }) {
-  const NEXT_PUBLIC_API_BASE = process.env.NEXT_PUBLIC_API_BASE;
+  const NEXT_PUBLIC_API_BASE = process.env.NEXT_PUBLIC_API_BASE || "/api";
   const [messages, setMessages] = useState([]);
   const [msgFn, setMsgFn] = useState(null);
 
