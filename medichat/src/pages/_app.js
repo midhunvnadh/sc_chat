@@ -1,11 +1,17 @@
-import "@/styles/app.css";
+import "@/assets/App.css";
 
 import { ThemeProvider } from "@material-tailwind/react";
+import { SessionProvider } from "next-auth/react";
 
-export default function MyApp({ Component, pageProps }) {
+export default function MyApp({
+  Component,
+  pageProps: { session, ...pageProps },
+}) {
   return (
     <ThemeProvider>
-      <Component {...pageProps} />
+      <SessionProvider session={session}>
+        <Component {...pageProps} />
+      </SessionProvider>
     </ThemeProvider>
   );
 }
