@@ -8,21 +8,6 @@ model_path = 'skin_disease_classifier.h5'
 loaded_model = tf.keras.models.load_model(model_path)
 img_width, img_height = 300, 225
 
-datagen = ImageDataGenerator(
-    rescale=1.0 / 255.0,
-    rotation_range=20,
-    width_shift_range=0.2,
-    height_shift_range=0.2,
-    shear_range=0.2,
-    zoom_range=0.2,
-    horizontal_flip=True,
-    fill_mode='nearest'
-)
-
-
-data_dir = 'dataset/sd/dataset'
-batch_size = 32
-
 
 def get_full_name(label):
     if (label == "akiec"):
@@ -65,9 +50,10 @@ def predict_skin_disease(image_path):
             "mel",
             "nv",
             "vasc"
-        ].sort()
+        ]
     )
 
+    print(predicted_class)
     # Get the predicted class label
     predicted_label = class_labels[predicted_class[0]]
     predicted_label = get_full_name(predicted_label)
