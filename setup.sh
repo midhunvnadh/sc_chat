@@ -8,8 +8,8 @@ apt-get install -y nginx &
 # Navigate to the backend directory and install dependencies
 cd /app/backend && pip install -r requirements.txt &
 
-# Navigate to the frontend directory and install dependencies
-cd /app/frontend && npm install &
+# Navigate to the medichat directory and install dependencies
+cd /app/medichat && npm install &
 
 # Wait for all processes to finish
 wait
@@ -17,9 +17,8 @@ wait
 # configure nginx
 cd /etc/nginx/sites-enabled && echo "include "/app/nginx/*.conf";" > default
 
-# Build the frontend
-echo "VITE_API_BASE=$VITE_API_BASE" > /app/frontend/.env.production
-cd /app/frontend && npm run build &
+# Build the nextjs app
+cd /app/medichat && npm run build &
 
 # download the model
 cd /app/backend && python3 download_model.py &
