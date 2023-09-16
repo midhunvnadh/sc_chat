@@ -2,16 +2,15 @@ import "@/assets/App.css";
 
 import { ThemeProvider } from "@material-tailwind/react";
 import { SessionProvider } from "next-auth/react";
+import Progress from "@/components/misc/Progress";
 
-export default function MyApp({
-  Component,
-  pageProps: { session, ...pageProps },
-}) {
+export default function App({ Component, pageProps }) {
   return (
-    <ThemeProvider>
-      <SessionProvider session={session}>
+    <SessionProvider session={pageProps.session}>
+      <Progress />
+      <ThemeProvider>
         <Component {...pageProps} />
-      </SessionProvider>
-    </ThemeProvider>
+      </ThemeProvider>
+    </SessionProvider>
   );
 }

@@ -6,15 +6,25 @@ import Message from "./Message";
 import axios from "axios";
 import intro from "./data/intro";
 
-export default function ChatScreen() {
+export default function ChatScreen({ session }) {
   const NEXT_PUBLIC_API_BASE = process.env.NEXT_PUBLIC_API_BASE;
   const [messages, setMessages] = useState([]);
   const [msgFn, setMsgFn] = useState(null);
 
+  function backToIntro() {
+    return intro({
+      setMessages,
+      findMedicine,
+      findSD,
+      message: "Anything more?",
+      session,
+    });
+  }
+
   useEffect(() => {
     setMessages((mss) => [
       ...mss,
-      intro({ setMessages, findMedicine, findSD }),
+      intro({ setMessages, findMedicine, findSD, session }),
     ]);
   }, []);
 
@@ -70,12 +80,7 @@ export default function ChatScreen() {
                     message: `Please consult a physician for further diagnosis. We could be wrong!`,
                     byBot: true,
                   },
-                  intro({
-                    setMessages,
-                    findMedicine,
-                    findSD,
-                    message: "Anything more?",
-                  }),
+                  backToIntro(),
                 ]);
               };
               input.click();
@@ -88,12 +93,7 @@ export default function ChatScreen() {
               setMessages((mss) => [
                 ...mss,
                 { message: "No worries, let's see what's wrong?", byBot: true },
-                intro({
-                  setMessages,
-                  findMedicine,
-                  findSD,
-                  message: "Anything more?",
-                }),
+                backToIntro(),
               ]);
             },
           },
@@ -154,19 +154,29 @@ export default function ChatScreen() {
           byBot: true,
         };
       });
-      setMessages((mss) => [
-        ...mss,
-        {
-          message: "Here are some medicines that might help you.",
-          byBot: true,
-        },
-        ...medicines,
-        {
-          message:
-            "We suggest you to consult a physician before taking any medicine.",
-          byBot: true,
-        },
-      ]);
+      if (medicines.length === 0) {
+        setMessages((mss) => [
+          ...mss,
+          {
+            message: "Sorry, we couldn't find any medicines for your query.",
+            byBot: true,
+          },
+        ]);
+      } else {
+        setMessages((mss) => [
+          ...mss,
+          {
+            message: "Here are some medicines that might help you.",
+            byBot: true,
+          },
+          ...medicines,
+          {
+            message:
+              "We suggest you to consult a physician before taking any medicine.",
+            byBot: true,
+          },
+        ]);
+      }
       setMessages((mss) => [
         ...mss,
         {
@@ -186,12 +196,7 @@ export default function ChatScreen() {
                 setMessages((mss) => [
                   ...mss,
                   { message, byBot: false },
-                  intro({
-                    setMessages,
-                    findMedicine,
-                    findSD,
-                    message: "Anything more?",
-                  }),
+                  backToIntro(),
                 ]);
                 setMsgFn(null);
               },
@@ -231,12 +236,22 @@ export default function ChatScreen() {
     },
   };
 
+  const [disableMessageInput, setDisableMessageInput] = useState(false);
+
   return (
     <div className="w-full h-screen flex items-center justify-center bg-gray-600 lg:py-6">
       <div className="max-w-lg bg-white h-full w-full rounded-md shadow-md flex flex-col rounded-t-2xl rounded-b-2xl">
         <Header />
-        <ChatArea messages={messages} />
-        <Message onMessage={messageFunction[msgFn || "default"]} />
+        <ChatArea
+          messages={messages}
+          disableMessageInput={(s) => {
+            setDisableMessageInput(s);
+          }}
+        />
+        <Message
+          onMessage={messageFunction[msgFn || "default"]}
+          disabled={disableMessageInput}
+        />
       </div>
     </div>
   );

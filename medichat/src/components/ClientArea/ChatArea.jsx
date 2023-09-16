@@ -4,7 +4,7 @@ import { useEffect, useState, useRef, useCallback } from "react";
 import { ThreeDots } from "react-loader-spinner";
 import moment from "moment";
 
-export default function ChatArea({ messages }) {
+export default function ChatArea({ messages, disableMessageInput }) {
   const containerRef = useRef(null);
   return (
     <div
@@ -20,6 +20,7 @@ export default function ChatArea({ messages }) {
             key={`message-${i}`}
             byBot={byBot}
             containerRef={containerRef}
+            disableMessageInput={disableMessageInput}
           />
         );
       })}
@@ -33,9 +34,16 @@ function ChatMessage({
   byBot = true,
   index: i,
   containerRef,
+  disableMessageInput,
 }) {
   const [mounted, setMounted] = useState(!byBot);
   const [allOptions, setOptions] = useState(options);
+
+  if (options && options.length > 0) {
+    disableMessageInput(true);
+  } else {
+    disableMessageInput(false);
+  }
 
   const scrollToBottom = useCallback(() => {
     if (containerRef?.current) {
@@ -119,6 +127,7 @@ function ChatMessage({
                         onClick={() => {
                           action(name);
                           setOptions([]);
+                          disableMessageInput(false);
                         }}
                       >
                         {name}

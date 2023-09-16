@@ -1,6 +1,24 @@
-export default function intro({ setMessages, findMedicine, findSD, message }) {
+export default function intro({
+  setMessages,
+  findMedicine,
+  findSD,
+  message,
+  session,
+}) {
+  console.log(session);
+  var username = "";
+  try {
+    username = session.user.name;
+    username = username.split(" ")[0];
+  } catch {
+    console.log("no username");
+  }
   return {
-    message: message || "Hey, welcome to MediBot! How can I help you today?",
+    message:
+      message ||
+      (username
+        ? `Hi ${username}!, how can I help you today?`
+        : "Hey, welcome to MediBot! How can I help you today?"),
     options: [
       {
         name: "I need to find a medicine",
