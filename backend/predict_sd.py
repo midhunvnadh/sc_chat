@@ -22,12 +22,27 @@ datagen = ImageDataGenerator(
 
 data_dir = 'dataset/sd/dataset'
 batch_size = 32
-generator = datagen.flow_from_directory(
-    data_dir,
-    target_size=(img_width, img_height),
-    batch_size=batch_size,
-    class_mode='categorical'
-)
+
+
+def get_full_name(label):
+    if (label == "akiec"):
+        label = "Actinic Keratoses and intraepithelial Carcinoma"
+    elif (label == "bcc"):
+        label = "Basal Cell Carcinoma"
+    elif (label == "bkl"):
+        label = "Benign keratosis lesions"
+    elif (label == "df"):
+        label = "Dermatofibroma"
+    elif (label == "mel"):
+        label = "Melanoma"
+    elif (label == "nv"):
+        label = "Melanocytic Nevi"
+    elif (label == "vasc"):
+        label = "Vascular Lesions"
+    else:
+        pass
+    return label
+
 
 def predict_skin_disease(image_path):
     # Load the image and preprocess it
@@ -41,12 +56,29 @@ def predict_skin_disease(image_path):
     predicted_class = np.argmax(prediction, axis=1)
 
     # Get the class labels from the generator
-    class_labels = list(generator.class_indices.keys())
+    class_labels = list(
+        [
+            "akiec",
+            "bcc",
+            "bkl",
+            "df",
+            "mel",
+            "nv",
+            "vasc"
+        ].sort()
+    )
 
     # Get the predicted class label
     predicted_label = class_labels[predicted_class[0]]
-    
-    # Get the prediction probabilities for each class
-    prediction_probabilities = {class_labels[i]: float(prediction[0][i]) for i in range(len(class_labels))}
+    predicted_label = get_full_name(predicted_label)
 
-    return predicted_label, prediction_probabilities 
+    # Get the prediction probabilities for each class
+    prediction_probabilities = {class_labels[i]: float(
+        prediction[0][i]) for i in range(len(class_labels))}
+
+    for key, value in prediction_probabilities.items():
+        prediction_probabilities[key] = round(value * 100, 2)
+
+    print(prediction_probabilities)
+
+    return predicted_label, prediction_probabilities
