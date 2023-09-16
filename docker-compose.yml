@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        - VITE_API_BASE=/api
+        - NEXT_PUBLIC_API_BASE=/api/flask
     image: medichat:latest
     container_name: medichat
     restart: unless-stopped

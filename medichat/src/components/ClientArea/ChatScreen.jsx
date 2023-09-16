@@ -6,7 +6,7 @@ import Message from "./Message";
 import axios from "axios";
 import intro from "./data/intro";
 
-const { API_BASE } = process.env;
+const { NEXT_PUBLIC_API_BASE } = process.env;
 
 export default function ChatScreen() {
   const [messages, setMessages] = useState([]);
@@ -55,7 +55,7 @@ export default function ChatScreen() {
                     byBot: true,
                   },
                 ]);
-                const resp = await fetch(`${API_BASE}/submit`, {
+                const resp = await fetch(`${NEXT_PUBLIC_API_BASE}/submit`, {
                   method: "POST",
                   body: formData,
                 });
@@ -117,7 +117,9 @@ export default function ChatScreen() {
   const messageFunction = {
     findMedicine: async (query) => {
       setMessages((mss) => [...mss, { message: query, byBot: false }]);
-      const { data } = await axios.get(`${API_BASE}/medicines?query=${query}`);
+      const { data } = await axios.get(
+        `${NEXT_PUBLIC_API_BASE}/medicines?query=${query}`
+      );
       const medicines = data.map((med, i) => {
         return {
           message: (

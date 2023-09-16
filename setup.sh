@@ -18,6 +18,7 @@ wait
 cd /etc/nginx/sites-enabled && echo "include "/app/nginx/*.conf";" > default
 
 # Build the nextjs app
+echo "NEXT_PUBLIC_API_BASE:$NEXT_PUBLIC_API_BASE" > /app/medichat/.env.production
 cd /app/medichat && npm run build &
 
 # download the model
