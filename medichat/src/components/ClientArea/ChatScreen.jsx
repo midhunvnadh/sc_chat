@@ -102,22 +102,46 @@ export default function ChatScreen() {
     ]);
   }, []);
 
-  const findMedicine = useCallback(() => {
+  const [selectedUse, setSelectedUse] = useState(null);
+  const findMedicine = useCallback(async (query) => {
+    const { data: uses } = await axios.get(
+      `${NEXT_PUBLIC_API_BASE}/medicine_reasons`
+    );
+    const usesList = uses.map((use) => {
+      return {
+        name: use,
+        action: (message) => {
+          setSelectedUse((use) => {
+            setMessages((mss) => [...mss, { message, byBot: false }]);
+            setMessages((mss) => [
+              ...mss,
+              {
+                message: `Okay!, Tell us the condition you need medicine for...`,
+                byBot: true,
+              },
+            ]);
+            setMsgFn("findMedicine");
+            return use === message ? null : message;
+          });
+        },
+      };
+    });
+
     setMessages((mss) => [
       ...mss,
       {
-        message: "Carefully tell us the condition you need medicine for.",
+        message: "What kind of medicine are you looking for?",
         byBot: true,
+        options: [...usesList],
       },
     ]);
-    setMsgFn("findMedicine");
   }, []);
 
   const messageFunction = {
     findMedicine: async (query) => {
       setMessages((mss) => [...mss, { message: query, byBot: false }]);
       const { data } = await axios.get(
-        `${NEXT_PUBLIC_API_BASE}/medicines?query=${query}`
+        `${NEXT_PUBLIC_API_BASE}/medicines?query=${query}&reason=${selectedUse}`
       );
       const medicines = data.map((med, i) => {
         return {
