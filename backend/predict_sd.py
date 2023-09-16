@@ -40,7 +40,6 @@ def predict_skin_disease(image_path):
     prediction = loaded_model.predict(img)
     predicted_class = np.argmax(prediction, axis=1)
 
-    # Get the class labels from the generator
     class_labels = list(
         [
             "akiec",

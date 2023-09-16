@@ -3,11 +3,10 @@ import ChatArea from "./ChatArea";
 import { useState, useEffect, useCallback } from "react";
 import formatPriceAsINR from "../../functions/currency_formatter";
 import Message from "./Message";
-const process = import.meta.env;
 import axios from "axios";
 import intro from "./data/intro";
 
-const { VITE_API_BASE: API_BASE } = process;
+const { API_BASE } = process.env;
 
 export default function ChatScreen() {
   const [messages, setMessages] = useState([]);
@@ -165,6 +164,7 @@ export default function ChatScreen() {
                   intro({
                     setMessages,
                     findMedicine,
+                    findSD,
                     message: "Anything more?",
                   }),
                 ]);
