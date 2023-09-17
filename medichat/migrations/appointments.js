@@ -1,7 +1,7 @@
 // migrations/<timestamp>_migration_name.js
 exports.up = function (knex) {
   return knex.schema.createTable("appointments", function (table) {
-    table.increments("id").unique();
+    table.increments("id").primary();
     table.string("p_email");
     table.string("d_email");
     table.integer("meeting_mode");

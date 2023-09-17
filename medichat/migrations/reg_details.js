@@ -1,7 +1,7 @@
 // migrations/<timestamp>_migration_name.js
 exports.up = function (knex) {
   return knex.schema.createTable("reg_details", function (table) {
-    table.string("email").unique();
+    table.string("email").primary();
     table.string("role");
   });
 };

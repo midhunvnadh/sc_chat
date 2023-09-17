@@ -1,7 +1,5 @@
 import { getSession } from "next-auth/react";
 import pg from "@/database/pg";
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "./auth/[...nextauth]";
 
 export default async function handler(req, res) {
   const session = await getSession({ req });
