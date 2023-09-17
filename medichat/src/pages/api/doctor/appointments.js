@@ -44,7 +44,7 @@ export default async function handler(req, res) {
         .json({ success: false, message: "Meeting details not provided" });
     }
 
-    var dateValid = false;
+    var dateValid = true;
     try {
       accepted_meeting_ts = new Date(accepted_meeting_ts);
       if (accepted_meeting_ts.toString() == "Invalid Date") {
