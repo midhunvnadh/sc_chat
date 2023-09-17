@@ -5,8 +5,6 @@ apt-get update
 # install nginx
 apt-get install -y nginx supervisor coreutils &
 
-mv /app/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-
 # Navigate to the backend directory and install dependencies
 cd /app/backend && pip install -r requirements.txt &
 
@@ -38,3 +36,4 @@ apt-get clean &
 wait
 
 rm -rf /var/lib/apt/lists/*
+mv /app/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
