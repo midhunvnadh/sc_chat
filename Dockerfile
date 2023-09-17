@@ -11,7 +11,7 @@ ENV NEXT_PUBLIC_API_BASE=$NEXT_PUBLIC_API_BASE
 RUN /app/setup.sh
 
 # Expose ports
-EXPOSE 80
+EXPOSE 8080
 
 # Start script in the foreground
 CMD ["/usr/bin/supervisord"]
