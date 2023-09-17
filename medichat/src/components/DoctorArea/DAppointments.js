@@ -12,8 +12,8 @@ function isValidTimestamp(timestamp) {
 
 export default function DAppointments({ session }) {
   const [appointments, setAppointments] = useState([]);
-
   const [accAppData, setAccAppData] = useState(null);
+
   const getAppointments = async () => {
     const response = await fetch("/api/doctor/appointments");
     const data = await response.json();
@@ -23,6 +23,7 @@ export default function DAppointments({ session }) {
   useEffect(() => {
     getAppointments();
   }, []);
+
   return (
     <div>
       {
@@ -101,7 +102,7 @@ export default function DAppointments({ session }) {
             <div>
               <Button
                 color="red"
-                onSubmit={() => {
+                onClick={() => {
                   signOut();
                 }}
               >
