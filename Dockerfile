@@ -14,4 +14,4 @@ RUN /app/setup.sh
 EXPOSE 80
 
 # Start script in the foreground
-CMD ["bash", "/app/run.sh"]
+CMD ["/usr/bin/supervisord"]
