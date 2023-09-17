@@ -17,7 +17,7 @@ export default function RegisterDoctor() {
     <div className="w-full flex items-center justify-center flex-col bg-gradient-to-br from-blue-700 to-blue-900 h-screen p-3">
       <div className="p-4 mb-5">
         <Typography variant="h2" className="font-black text-white">
-          Doctor's Approval Form
+          Doctor&apos;s Approval Form
         </Typography>
       </div>
       <form
