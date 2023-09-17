@@ -3,13 +3,12 @@
 setup_base(){
     apt-get update
     apt-get install -y nginx supervisor coreutils
+    apt-get clean &
     
     echo "include "/app/nginx/*.conf";" > /etc/nginx/sites-enabled/default
 
     rm -rf /var/lib/apt/lists/*
     mv /app/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-    
-    apt-get clean
 
     echo "Base setup done"
 }
