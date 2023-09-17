@@ -25,11 +25,14 @@ def summarize_text(text, num_sentences=2):
 
     return summarized_text
 
-def find_medicine(query):
+def find_medicine(query, reason):
     query = summarize_text(query)
     print("Query: " + query)
     keywords = preprocess_text(query)
     data = get_medicine_data()
+    if(reason != None):
+        reason = reason.lower()
+        data = [medicine for medicine in data if reason in medicine["uses"].lower()]
     matches = []
     for medicine in data:
         rank = 0
@@ -38,6 +41,8 @@ def find_medicine(query):
                 rank += 1
             med_name = medicine["name"]
             if keyword in med_name:
+                rank += 1
+            if keyword in medicine["uses"]:
                 rank += 1
         if rank > 0:
             matches.append((rank, medicine))

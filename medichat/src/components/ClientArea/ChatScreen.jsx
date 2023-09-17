@@ -239,20 +239,18 @@ export default function ChatScreen({ session }) {
   const [disableMessageInput, setDisableMessageInput] = useState(false);
 
   return (
-    <div className="w-full h-screen flex items-center justify-center bg-gray-600 lg:py-6">
-      <div className="max-w-lg bg-white h-full w-full rounded-md shadow-md flex flex-col rounded-t-2xl rounded-b-2xl">
-        <Header />
-        <ChatArea
-          messages={messages}
-          disableMessageInput={(s) => {
-            setDisableMessageInput(s);
-          }}
-        />
-        <Message
-          onMessage={messageFunction[msgFn || "default"]}
-          disabled={disableMessageInput}
-        />
-      </div>
+    <div className="h-full flex flex-col">
+      <Header />
+      <ChatArea
+        messages={messages}
+        disableMessageInput={(s) => {
+          setDisableMessageInput(s);
+        }}
+      />
+      <Message
+        onMessage={messageFunction[msgFn || "default"]}
+        disabled={disableMessageInput}
+      />
     </div>
   );
 }

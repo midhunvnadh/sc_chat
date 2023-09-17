@@ -2,9 +2,11 @@ from flask import Flask, send_from_directory, request
 import random
 import string
 import os
+
 from get_best_medicines import find_medicine
 from flask_cors import CORS
 from predict_sd import predict_skin_disease
+from get_mr_reasons import get_reasons
 
 app = Flask(__name__)
 CORS(app)
@@ -51,11 +53,26 @@ def submit():
 
 @app.route('/medicines', methods=['GET'])
 def medicines():
-    query = request.args.get('query')
-    query = query.lower()
+    try:
+        query = request.args.get('query')
+        query = query.lower()
+        reason = None
+        try:
+            reason = request.args.get('reason')
+            reason = reason.lower()
+        except:
+            pass
+    except:
+        return "Invalid request"
     print(f"Query: {query}")
-    medicines = find_medicine(query)
+    medicines = find_medicine(query, reason)
     return medicines
+
+
+@app.route('/medicine_reasons', methods=['GET'])
+def medicine_reasons():
+    reasons = get_reasons()
+    return reasons
 
 
 if __name__ == '__main__':

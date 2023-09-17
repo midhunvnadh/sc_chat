@@ -12,13 +12,13 @@ export default function Main() {
           Welcome to Medichat!
         </h1>
       </div>
-      <div className="flex items-center justify-center w-full py-12">
-        <div className="w-2/4">
+      <div className="flex items-center justify-center w-full py-12 flex-wrap">
+        <div className="lg:w-2/4 w-full">
           <div className="w-full flex justify-center">
             <LoginArea />
           </div>
         </div>
-        <div className="w-2/4">
+        <div className="lg:w-2/4 w-full">
           <ul className="">
             <li>
               <h2 className="text-2xl font-bold text-gray-200 py-3">

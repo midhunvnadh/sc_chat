@@ -41,3 +41,7 @@
 /medichat/.vercel
 /medichat/*.tsbuildinfo
 /medichat/next-env.d.ts
+/medichat/*.env
+/medichat/.env.production
+
+/medichat/database/ca-certificate.crt
