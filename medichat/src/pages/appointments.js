@@ -56,7 +56,7 @@ export default function Appointments() {
                     {!appointment.accepted_meeting_ts && "Not accepted"}
                   </td>
                   <td className="p-3">
-                    {appointment.appointment_details || "Not accepted"}
+                    {appointment.meeting_details || "Not accepted"}
                   </td>
                   <td className="p-3">
                     {new Date(appointment.created_at).toLocaleString()}

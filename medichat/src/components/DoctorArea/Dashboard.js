@@ -4,7 +4,7 @@ import RegisterDoctor from "./RegisterDoctor";
 import DAppointments from "./DAppointments";
 import Loading from "../misc/Loading";
 
-export default function DDashboard() {
+export default function DDashboard({ session }) {
   const [doctor, setDoctor] = useState({});
   const [loading, setLoading] = useState(true);
 
@@ -24,7 +24,13 @@ export default function DDashboard() {
       <div>
         {loading && <Loading />}
         {!loading && (
-          <>{doctor.notFound ? <RegisterDoctor /> : <DAppointments />}</>
+          <>
+            {doctor.notFound ? (
+              <RegisterDoctor />
+            ) : (
+              <DAppointments session={session} />
+            )}
+          </>
         )}
       </div>
     </div>

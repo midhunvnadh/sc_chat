@@ -23,7 +23,8 @@ export default async function handler(req, res) {
         appointments.p_email = $1
         AND
         appointments.d_email = doctors.email 
-        
+      ORDER BY
+        appointments.created_at DESC
         `,
       [email]
     );
