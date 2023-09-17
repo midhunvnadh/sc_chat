@@ -4,11 +4,12 @@ import { useState } from "react";
 import axios from "axios";
 
 function ContinueAs({ title, children, onClick, selected }) {
+  console.log(selected);
   return (
     <div
       className={`${
-        selected ? "border-gray-50" : ""
-      } rounded-md border-4 hover:border-gray-50 cursor-pointer border-transparent w-full p-5 bg-blue-800`}
+        selected ? "border-gray-50" : "border-transparent"
+      } rounded-md border-4 hover:border-gray-50 cursor-pointer w-full p-5 bg-blue-800`}
       onClick={onClick}
     >
       <div>
