@@ -1,39 +1,42 @@
 #!/bin/bash
 
-apt-get update
+setup_base(){
+    apt-get update
+    apt-get install -y nginx supervisor coreutils
+    
+    echo "include "/app/nginx/*.conf";" > /etc/nginx/sites-enabled/default
 
-# install nginx
-apt-get install -y nginx supervisor coreutils &
+    rm -rf /var/lib/apt/lists/*
+    mv /app/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+    
+    apt-get clean
 
-# Navigate to the backend directory and install dependencies
-cd /app/backend && pip install -r requirements.txt &
+    echo "Base setup done"
+}
 
-# Navigate to the medichat directory and install dependencies
-cd /app/medichat && npm install &
+setup_flask(){
+    cd /app/backend && pip install -r requirements.txt
+    cd /app/backend && python3 download_model.py &
+    cd /app/backend && python3 gen_medicine_data.py &
 
-# Wait for all processes to finish
+    echo "Required python packages installed"
+}
+
+setup_next(){
+    cd /app/medichat && npm install
+    
+    echo "NEXT_PUBLIC_API_BASE=$NEXT_PUBLIC_API_BASE" > /app/medichat/.env.production
+    echo "$CA_CERT" | base64 -d > /app/medichat/src/database/ca-certificate.crt
+    echo "DB_URL=$DB_URL" >> /app/medichat/.env.production
+    
+    cd /app/medichat && npm run build
+
+    echo "NEXT setup done"
+}
+
+
+setup_base &
+setup_flask &
+setup_next &
+
 wait
-
-# configure nginx
-cd /etc/nginx/sites-enabled && echo "include "/app/nginx/*.conf";" > default
-
-# Build the nextjs app
-echo "NEXT_PUBLIC_API_BASE=$NEXT_PUBLIC_API_BASE" > /app/medichat/.env.production
-echo "$CA_CERT" | base64 -d > /app/medichat/src/database/ca-certificate.crt
-echo "DB_URL=$DB_URL" >> /app/medichat/.env.production
-cd /app/medichat && npm run build &
-
-# download the model
-cd /app/backend && python3 download_model.py &
-
-# generate medicine rs
-cd /app/backend && python3 gen_medicine_data.py &
-
-# clean apt
-apt-get clean &
-
-# Wait for all processes to finish
-wait
-
-rm -rf /var/lib/apt/lists/*
-mv /app/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
