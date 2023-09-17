@@ -6,6 +6,10 @@ Welcome to MEDICHAT, where we've transformed the healthcare experience into an i
 
 [Click to view the prototype](https://medichat.redsoc.in)
 
+## 🩺Skin disease prediction model
+
+[Click to view model implementation]
+
 ## 🌟 Why MEDICHAT Matters
 
 Picture the healthcare landscape today: the demand for skincare expertise and tailored medicine recommendations is skyrocketing. Efficient healthcare solutions are paramount, yet abrupt changes in skincare requirements and medical expectations have left gaps in the system. Traditional healthcare systems struggle during peak skincare and medication needs, leaving individuals seeking specialized advice from distant sources.
