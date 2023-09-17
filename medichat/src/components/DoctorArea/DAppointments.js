@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Button, Typography } from "@material-tailwind/react";
 import { Textarea, Input } from "@material-tailwind/react";
 import axios from "axios";
+import { signOut } from "next-auth/react";
 
 function isValidTimestamp(timestamp) {
   const date = new Date(timestamp);
@@ -98,7 +99,14 @@ export default function DAppointments({ session }) {
               </Typography>
             </div>
             <div>
-              <Button color="red">Logout</Button>
+              <Button
+                color="red"
+                onSubmit={() => {
+                  signOut();
+                }}
+              >
+                Logout
+              </Button>
             </div>
           </div>
           <div className="w-full p-3">
