@@ -24,11 +24,20 @@ function Sidebar({ session, toggle, collapsed }) {
       >
         <GiHamburgerMenu />
       </button>
-      <div className="absolute w-full h-full overflow-hidden lg:rounded-2xl">
+      <div
+        className={`absolute w-full h-full overflow-hidden lg:rounded-2xl ${
+          collapsed
+            ? "-translate-x-full opacity-0 delay-1000 z-20 transition"
+            : ""
+        }`}
+      >
         <motion.div
           className="flex flex-col w-5/6 absolute h-full bg-gray-100 z-10 shadow lg:rounded-2xl overflow-hidden"
+          style={{
+            translateX: "-100%",
+          }}
           animate={{
-            x: collapsed ? "-100%" : "0%",
+            translateX: collapsed ? "-100%" : "0%",
           }}
           transition={{
             duration: 0.5,
