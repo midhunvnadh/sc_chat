@@ -6,10 +6,6 @@ Welcome to MEDICHAT, where we've transformed the healthcare experience into an i
 
 [Click to view the prototype](https://medichat.redsoc.in)
 
-## 🩺Skin disease prediction model
-
-[Click to view model implementation]
-
 ## 🌟 Why MEDICHAT Matters
 
 Picture the healthcare landscape today: the demand for skincare expertise and tailored medicine recommendations is skyrocketing. Efficient healthcare solutions are paramount, yet abrupt changes in skincare requirements and medical expectations have left gaps in the system. Traditional healthcare systems struggle during peak skincare and medication needs, leaving individuals seeking specialized advice from distant sources.
@@ -23,6 +19,9 @@ In today's fast-paced world, healthcare accessibility is crucial. MEDICHAT aims 
 ### Skin Disease Recognition Module
 
 Experience the power of artificial intelligence and machine learning as our module analyzes images of your skin. It delves deep into pixels to detect even subtle indicators of potential medical conditions. Its keen digital eye doesn't just offer insights; it unveils the probability of underlying dermatological issues with precision and expertise.
+
+### 🩺 Skin disease prediction model: 
+----- [Click to view model implementation](https://github.com/midhunvnadh/sc_chat/blob/master/backend/train.ipynb) -----
 
 ### Doctor Appointment System
 
