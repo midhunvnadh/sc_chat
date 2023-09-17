@@ -59,13 +59,14 @@ docker-compose down --rmi all
 
 MEDICHAT leverages cutting-edge technologies to provide you with the best healthcare experience:
 
-- Flask for web application development.
-- Python for data processing and machine learning.
-- Tensorflow for advanced machine learning models.
-- Docker for a virtualized environment.
-- Node JS for seamless interactions.
-- React JS for a responsive user interface.
-- Next Js for optimal performance.
-- Database used: Postgres
+- **Flask** for web application development.
+- **Python** for data processing and machine learning.
+- **Tensorflow** for advanced machine learning models.
+- **Docker** for a virtualized environment.
+- **Node JS** for seamless interactions.
+- **React JS** for a responsive user interface.
+- **Next JS** for optimal performance.
+- **NGINX** (Web server) connecting Flask and Next JS for API calls
+- Database used: **Postgres**
 
 Your health, your well-being, and your peace of mind are at the heart of everything we do. Let's embark on this interactive healthcare journey together!
