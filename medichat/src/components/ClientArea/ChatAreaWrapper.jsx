@@ -72,7 +72,7 @@ function Sidebar({ session, toggle, collapsed }) {
               },
             ].map(({ name, icon, link, action }) => {
               return (
-                <Link href={link}>
+                <Link href={link} key={`${name}-${link}-${link}`}>
                   <div className="w-full p-3 flex items-center justify-start hover:bg-gray-200">
                     <div className="h-12 w-12 rounded-full bg-white flex items-center justify-center text-2xl text-gray-600">
                       {icon}
