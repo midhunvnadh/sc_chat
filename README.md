@@ -2,6 +2,10 @@
 
 Welcome to MEDICHAT, where we've transformed the healthcare experience into an interactive journey. In a society grappling with increasingly intricate healthcare challenges, MEDICHAT emerges as your guiding light, specializing in skincare and personalized medicine recommendations.
 
+## 💻 Working Model (Prototype link)
+
+[Click to view the prototype](https://medichat.redsoc.in)
+
 ## 🌟 Why MEDICHAT Matters
 
 Picture the healthcare landscape today: the demand for skincare expertise and tailored medicine recommendations is skyrocketing. Efficient healthcare solutions are paramount, yet abrupt changes in skincare requirements and medical expectations have left gaps in the system. Traditional healthcare systems struggle during peak skincare and medication needs, leaving individuals seeking specialized advice from distant sources.
@@ -40,18 +44,21 @@ Hop onto a linux environment with docker.
 cd <project folder>
 ```
 
+Run this command to start the app:
+
 ```bash
-# run this command to start the app
 docker-compose up -d --remove-orphans
 ```
 
-```link
-# goto link to view the app
+Wait for build to finish, then visit this link to view the app:
+
+```bash
 http://localhost:3000
 ```
 
+To stop the app:
+
 ```bash
-# to stop the app
 docker-compose down --rmi all
 ```
 
