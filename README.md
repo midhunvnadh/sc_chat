@@ -20,6 +20,9 @@ In today's fast-paced world, healthcare accessibility is crucial. MEDICHAT aims 
 
 Experience the power of artificial intelligence and machine learning as our module analyzes images of your skin. It delves deep into pixels to detect even subtle indicators of potential medical conditions. Its keen digital eye doesn't just offer insights; it unveils the probability of underlying dermatological issues with precision and expertise.
 
+### 🩺 Skin disease prediction model: 
+----- [Click to view model implementation](https://github.com/midhunvnadh/sc_chat/blob/master/backend/train.ipynb) -----
+
 ### Doctor Appointment System
 
 Say goodbye to the complexities of booking medical appointments. We've streamlined the process to make it effortless for both patients and healthcare providers. Booking appointments has never been this hassle-free.
